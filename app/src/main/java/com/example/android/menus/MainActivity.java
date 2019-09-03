@@ -1,5 +1,6 @@
 package com.example.android.menus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 if (mActionMode != null){
                     return false;
                 }
-                mActionMode = startSupportActionMode((androidx.appcompat.view.ActionMode.Callback) mActionModeCallback);
+                mActionMode= startSupportActionMode((androidx.appcompat.view.ActionMode.Callback) mActionModeCallback);
                 return true;
             }
         });
@@ -83,12 +84,32 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
+
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "Check out the menu Course app");
+
+        //search and populate the menu with acceptable offering applications
+        menu.addIntentOptions(
+                R.id.intent_group,
+                0,
+                0,
+                this.getComponentName(),
+                null,
+                intent,
+                0,
+                null
+        );
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        if (item.isChecked()){
+            item.setChecked(false);
+        }else item.setChecked(true);
         //handling options menu item click
         switch (item.getItemId()){
             case R.id.menuItem1:
@@ -147,5 +168,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             default:
                 return false;
         }
+    }
+
+    public void Next(View view) {
+        Intent intent = new Intent(this, AdvancedMenu.class);
+        startActivity(intent);
     }
 }
