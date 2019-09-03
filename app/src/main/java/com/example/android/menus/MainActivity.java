@@ -8,13 +8,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     androidx.appcompat.view.ActionMode mActionMode;
 
@@ -124,6 +125,27 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onContextItemSelected(item);
+        }
+    }
+
+    public void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.popupmenu1:
+                Toast.makeText(this, "Pop up Menu Loaded", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.popupmenu2:
+                Toast.makeText(this, "Pop up menu Visible", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
         }
     }
 }
