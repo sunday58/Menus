@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/contextmenu1"
+        android:title="Contextual Menu 1"/>
+
+    <item android:id="@+id/contextmenu2"
+        android:title="Contextual Menu 2"/>
+
 </menu>
